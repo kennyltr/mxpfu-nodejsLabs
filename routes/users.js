@@ -23,15 +23,39 @@ let users = [
     },
 ];
 
+// Date format function
+function formatDate (date) {
+  let formatted = new Date(date.split('-').toReversed().join('-'));
+  return formatted;
+}
+
+
 // GET request: Retrieve all users
 router.get("/",(req,res)=>{
   res.send(JSON.stringify({users},null,4));
 });
 
+
 // GET by specific ID request: Retrieve a single user with email ID
 router.get("/:email",(req,res)=>{
   let getuser = users.filter((user) => user.email === req.params.email);
   res.send(getuser);
+});
+
+
+// GET by specific last name request: Retrieve all users with last name
+router.get("/lastName/:lastName",(req,res)=>{
+  let getuser = users.filter((user) => user.lastName === req.params.lastName);
+  res.send(getuser);
+});
+
+
+// GET request: Sort all users by date of birth and retrieve
+router.get("/sort",(req,res)=>{
+  let sortedusers = [...users].sort(function(a,b) {
+    return formatDate(a.DOB)-formatDate(b.DOB);
+  });
+  res.send(sortedusers);
 });
 
 
