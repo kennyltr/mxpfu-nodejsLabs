@@ -51,7 +51,7 @@ router.get("/lastName/:lastName",(req,res)=>{
 
 
 // GET request: Sort all users by date of birth and retrieve
-router.get("/sort",(req,res)=>{
+router.get("/sortbyDOB",(req,res)=>{
   let sortedusers = [...users].sort(function(a,b) {
     return formatDate(a.DOB)-formatDate(b.DOB);
   });
